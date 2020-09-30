@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-   "migrate:save": "npx prisma migrate save --name init --experimental",
+    "migrate:save": "npx prisma migrate save --name init --experimental",
     "migrate:up": "npx prisma migrate up --experimental",
     "migrate": "yarn -s migrate:save && yarn -s migrate:up",
     "generate:nexus": "NODE_ENV=development ts-node --transpile-only -P nexus.tsconfig.json ./src/graphql/schema-config",
@@ -33,6 +33,7 @@
     "@nestjs/platform-express": "^7.0.0",
     "@nexus/schema": "^0.15.0",
     "apollo-server-express": "^2.18.1",
+    "bcrypt": "^5.0.0",
     "cuid": "^2.1.8",
     "graphql": "^14.6.0",
     "isemail": "^3.2.0",
