@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-   "migrate:save": "npx prisma migrate save --name init --experimental",
+    "migrate:save": "npx prisma migrate save --name init --experimental",
     "migrate:up": "npx prisma migrate up --experimental",
     "migrate": "yarn -s migrate:save && yarn -s migrate:up",
     "generate:nexus": "NODE_ENV=development ts-node --transpile-only -P nexus.tsconfig.json ./src/graphql/schema-config",
