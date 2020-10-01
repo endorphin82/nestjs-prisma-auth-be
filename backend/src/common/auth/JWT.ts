@@ -9,7 +9,7 @@ export class JWT implements IAuth<User> {
       email: user.email,
       sub: user.id.toValue(),
       iss: 'https://auth.test.io/basic',
-    }, 'secret', {
+    }, process.env.JWT_SECRET, {
       algorithm: 'HS256',
     });
   }
@@ -18,7 +18,7 @@ export class JWT implements IAuth<User> {
     if (!token) return null;
 
     try {
-      const jwtToken: any = jwt.verify(token.replace('Bearer ', ''), 'secret');
+      const jwtToken: any = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET);
       return jwtToken?.sub;
     } catch (err) {
       return null;

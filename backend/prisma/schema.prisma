@@ -9,18 +9,13 @@ generator client {
 
 model User {
     id                      String    @id @default(cuid())
-    addresses               Address[]
     email                   String    @unique
-    role                    RoleEnum  @default(EMPLOYEE)
-    avatar                  String?
-    avatarId                String?
+    role                    String    @default("EMPLOYEE")
     firstName               String?
     lastName                String?
-    gender                  GenderEnum?
-    profession              String?
-    phone                   String?
-    accessToken             String?
-    status                  StatusEnum @default(pending)
+    status                  String    @default("pending")
+    password                String
+    tokens                  Token[]
 }
 
 model Token {
@@ -29,30 +24,4 @@ model Token {
   userId                    String?
   expireAt                  DateTime?
   uId                       User? @relation(fields: [userId], references: [id])
-}
-
-model Address {
-    id                      String    @id @default(cuid())
-    country                 String?
-    city                    String?
-    addressLine1            String?
-    addressLine2            String?
-    user                    User?     @relation(fields: [userId], references: [id])
-    userId                  String?
-}
-
-enum StatusEnum {
-  pending
-  active
-  blocked
-}
-
-enum RoleEnum {
-    ADMIN
-    EMPLOYEE
-}
-
-enum GenderEnum {
-    male
-    female
 }

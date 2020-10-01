@@ -16,7 +16,6 @@ export class PrismaUsersRepository implements IUserRepository {
     const createdUser = await this.prisma.user.create({
       data: {
         ...persistenceUser,
-        role: { set: persistenceUser.role },
       },
     });
 

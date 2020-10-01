@@ -3,7 +3,11 @@ import { Email } from '../../common/Email';
 import { IPassword } from '../../common/auth/IPassword';
 import { BcryptPassword } from '../../common/auth/BcryptPassword';
 
-import { IUserService, CreateUserInterface, SignUpUserInterface, SignInUserInterface } from './IUserService';
+import {
+  CreateUserInterface,
+  IUserService,
+  SignInUserInterface, SignUpUserInterface,
+} from './IUserService';
 import { IUserRepository } from '../repository/IUserRepository';
 import { User } from '../domain/User';
 import { AuthPayload } from '../domain/AuthPayload';
@@ -36,9 +40,10 @@ export class UserService implements IUserService {
       throw new Error('Incorrect email or password');
     }
 
+    // @ts-ignore
     const user = User.create(userExists, userExists.id);
 
-    const jwt:JWT = new JWT();
+    const jwt: JWT = new JWT();
     const token = jwt.getToken(user);
 
     return {
@@ -47,8 +52,22 @@ export class UserService implements IUserService {
     };
   }
 
-  public createUser({ email, password, firstName, lastName, middleName, role }: CreateUserInterface) {
-    const user = User.create({ email, password, firstName, lastName, middleName, role });
+  public createUser({
+                      email,
+                      firstName,
+                      lastName,
+                      role,
+                      status,
+                      password,
+                    }: CreateUserInterface) {
+    const user = User.create({
+      email,
+      firstName,
+      lastName,
+      role,
+      status,
+      password,
+    });
 
     return this.userRepository.createUser(user);
   }
@@ -68,11 +87,11 @@ export class UserService implements IUserService {
     const hashedPassword: string = await bcryptPassword.getHashedPassword();
 
     const user = User.create({
-      firstName,
-      lastName,
+      role: undefined,
+      status: undefined,
+      firstName, lastName,
       password: hashedPassword,
-      email: userEmail.email,
-      role: 'EMPLOYEE',
+      email: userEmail.email
     });
 
     const createdUser = await this.userRepository.createUser(user);

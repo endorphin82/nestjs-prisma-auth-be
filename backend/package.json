@@ -8,10 +8,10 @@
   "scripts": {
     "migrate:save": "npx prisma migrate save --name init --experimental",
     "migrate:up": "npx prisma migrate up --experimental",
-    "migrate": "yarn -s migrate:save && yarn -s migrate:up",
+    "migrate": "npm run migrate:save && npm run migrate:up",
     "generate:nexus": "NODE_ENV=development ts-node --transpile-only -P nexus.tsconfig.json ./src/graphql/schema-config",
     "generate:prisma": "npx prisma generate",
-    "generate": "yarn -s generate:prisma && yarn -s generate:nexus",
+    "generate": "npm run generate:prisma && npm run generate:nexus",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -19,12 +19,7 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
@@ -37,6 +32,7 @@
     "cuid": "^2.1.8",
     "graphql": "^14.6.0",
     "isemail": "^3.2.0",
+    "jsonwebtoken": "^8.5.1",
     "nexus-plugin-prisma": "^0.19.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
