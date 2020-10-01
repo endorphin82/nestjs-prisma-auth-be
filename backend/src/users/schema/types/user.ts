@@ -3,22 +3,24 @@ import { objectType } from '@nexus/schema';
 export const User = objectType({
   name: 'User',
   definition(t) {
-    t.id('id');
-    t.string('email');
-    t.string('name');
-    t.field('roles', {
-      type: 'UserRole',
-      list: true,
-    });
-    // t.field('accounts', {
-    //   type: 'Account',
+    t.model.id();
+    t.model.email();
+    t.model.tokens();
+    t.model.role();
+    t.model.firstName();
+    t.model.lastName();
+    t.model.status();
+    t.model.password();
+
+    // t.field('tokens', {
+    //   type: 'Token',
     //   list: true,
     //   resolve: async ({ id }) => {
     //     if (!id) return [];
     //
-    //     const accounts = await accountService.getUserAccounts({ userId: id });
+    //     const tokens = await tokenService.getUserTokens({ userId: id });
     //
-    //     return accounts.map((account) => AccountMap.toNexus(account));
+    //     return tokens.map((token) => TokenMap.toNexus(token));
     //   },
     // });
   },

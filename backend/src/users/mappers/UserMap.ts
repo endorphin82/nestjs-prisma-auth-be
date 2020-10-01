@@ -9,12 +9,12 @@ export class UserMap {
   static toDomain(raw: PersistenceUser): User {
     const user = User.create(
       {
-        lastName: raw.lastName,
-        firstName: raw.firstName,
-        password: raw.password,
         email: raw.email,
-        middleName: raw.middleName,
-        roles: raw.roles,
+        role: raw.role,
+        firstName: raw.firstName,
+        lastName: raw.lastName,
+        password: raw.password,
+        status: raw.status,
       },
       new UniqueEntityID(raw.id),
     );
@@ -25,12 +25,12 @@ export class UserMap {
   static toPersistence(user: User): PersistenceUser {
     return {
       id: user.id.toValue(),
-      email: user.email,
+      email: user.email!,
+      role: user.role!,
+      firstName: user.firstName,
+      lastName: user.lastName,
       password: user.password,
-      middleName: user.middleName!,
-      firstName: user.firstName!,
-      lastName: user.lastName!,
-      roles: user.roles,
+      status: user.status!,
     };
   }
 
@@ -38,8 +38,12 @@ export class UserMap {
     return {
       id: user.id.toValue(),
       email: user.email,
-      name: user.getName(),
-      roles: user.roles,
+      role: user.role!,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      password: user.password,
+      status: user.status!,
+      tokens: [] as any,
       // accounts: null,
     };
   }

@@ -1,28 +1,15 @@
 import { Entity } from '../../common/Entity';
 import { UniqueEntityID } from '../../common/UniqueEntityID';
 
-import { RoleEnum } from '../../enums/role.enum';
-
-interface IUserProps {
-  email: string;
-  password: string,
-  firstName?: string | null,
-  lastName?: string | null,
-  middleName?: string | null,
-  role: RoleEnum,
-}
+import { IUserProps } from '../../types/IUserProps';
 
 export class User extends Entity<IUserProps> {
-  get role(): RoleEnum {
-    return this.props.role;
-  }
-
   get email(): string {
     return this.props.email;
   }
 
-  get password(): string {
-    return this.props.password;
+  get role(): string {
+    return this.props.role;
   }
 
   get firstName(): string | null | undefined {
@@ -33,16 +20,16 @@ export class User extends Entity<IUserProps> {
     return this.props.lastName;
   }
 
-  get middleName(): string | null | undefined {
-    return this.props.middleName;
+  get password(): string {
+    return this.props.password;
+  }
+
+  get status(): string {
+    return this.props.status;
   }
 
   private constructor(props: IUserProps, id?: UniqueEntityID) {
     super(props, id);
-  }
-
-  getName() {
-    return `${(this.firstName) || ''} ${(this.middleName) || ''} ${(this.lastName) || ''}`.trim();
   }
 
   public static create(props: IUserProps, id?: UniqueEntityID): User {

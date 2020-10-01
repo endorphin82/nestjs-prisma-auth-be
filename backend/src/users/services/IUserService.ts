@@ -1,6 +1,5 @@
 import { User } from '../domain/User';
 import { AuthPayload } from '../domain/AuthPayload';
-import { RoleEnum } from '../../enums/role.enum';
 
 export interface IUserService {
   signUpUser(data: SignUpUserInterface): Promise<AuthPayload>;
@@ -11,12 +10,12 @@ export interface IUserService {
 }
 
 export interface CreateUserInterface {
-  email: string;
+  email: string
+  role: string
+  firstName?: string | null
+  lastName?: string | null
+  status: string
   password: string;
-  middleName?: string | null;
-  firstName?: string | null;
-  lastName?: string | null;
-  role: RoleEnum;
 }
 
 export interface SignUpUserInterface {
