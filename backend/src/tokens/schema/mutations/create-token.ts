@@ -1,30 +1,29 @@
-import {  extendType } from '@nexus/schema';
+import { arg, extendType, inputObjectType } from '@nexus/schema';
+import { TokenMap } from '../../mappers/TokenMap';
 
 
-export const CreateProductMutation = extendType({
+export const CreateTokenMutation = extendType({
   type: 'Mutation',
   definition: (t) => {
-    t.crud.createOneToken();
-    // t.field('createUser', {
-    //   type: 'User',
-    //   args: { data: arg({ type: CreateteProductInput, required: true }) },
-    //   resolve: async (_, { data }, { productService }) => {
-    //     const user = await productService.createUser(data);
-    //
-    //     return UserMap.toNexus(user);
-    //   },
-    // });
+    t.field('createToken', {
+      type: 'Token',
+      args: { data: arg({ type: CreateTokenInput, required: true }) },
+      resolve: async (_, { data }, { tokenService }) => {
+
+        // @ts-ignore
+        const token = await tokenService.createToken(data);
+
+        return TokenMap.toNexus(token);
+      },
+    });
   },
 });
 
-// export const CreateProductInput = inputObjectType({
-//   name: 'CreateProductInput',
-//   definition(t) {
-//     t.string('email', { required: true });
-//     t.string('password', { required: true });
-//     t.string('firstName');
-//     t.string('middleName');
-//     t.string('lastName');
-//
-//   },
-// });
+export const CreateTokenInput = inputObjectType({
+  name: 'CreateTokenInput',
+  definition(t) {
+    t.string('token');
+    t.string('expireAt');
+    t.string('userId');
+  },
+});

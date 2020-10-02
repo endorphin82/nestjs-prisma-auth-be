@@ -32,9 +32,8 @@ export class TokenMap {
     return {
       id: token.id.toValue(),
       token: token.token,
-      userId: token.userId,
       expireAt: token.expireAt,
-      user: null,
+      uId: null as any
       // category: NexusGenFieldTypes['Category'] | null;
     };
   }

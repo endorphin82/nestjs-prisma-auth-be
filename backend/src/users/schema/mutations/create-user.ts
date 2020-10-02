@@ -8,6 +8,7 @@ export const CreateUserMutation = extendType({
       type: 'User',
       args: { data: arg({ type: CreateUserInput, required: true }) },
       resolve: async (_, { data }, { userService }) => {
+
         // @ts-ignore
         const user = await userService.createUser(data);
 

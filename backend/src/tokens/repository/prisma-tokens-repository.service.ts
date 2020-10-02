@@ -6,7 +6,7 @@ import { Token } from '../domain/Token';
 import { ITokenRepository } from './ITokenRepository';
 
 @Injectable()
-export class PrismaTokenRepository implements ITokenRepository {
+export class PrismaTokensRepository implements ITokenRepository {
   constructor(
     private readonly prisma: PrismaService,
   ) {}
