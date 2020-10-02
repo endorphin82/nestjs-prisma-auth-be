@@ -91,7 +91,7 @@ export class UserService implements IUserService {
       status: undefined,
       firstName, lastName,
       password: hashedPassword,
-      email: userEmail.email
+      email: userEmail.email,
     });
 
     const createdUser = await this.userRepository.createUser(user);

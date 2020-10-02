@@ -22,6 +22,6 @@ model Token {
   id                        String    @id @default(cuid())
   token                     String?
   userId                    String?
-  expireAt                  DateTime?
+  expireAt                  String?
   uId                       User? @relation(fields: [userId], references: [id])
 }

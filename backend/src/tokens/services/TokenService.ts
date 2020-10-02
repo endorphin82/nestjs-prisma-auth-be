@@ -4,7 +4,6 @@ import { CreateTokenInterface, ITokenService } from './ITokenService';
 import { Token } from '../domain/Token';
 import { ITokenRepository } from '../repository/ITokenRepository';
 
-
 @Injectable()
 export class TokenService implements ITokenService {
   constructor(
@@ -16,10 +15,14 @@ export class TokenService implements ITokenService {
     return this.tokenRepository.getToken(id);
   }
 
-  public createToken(data: CreateTokenInterface) {
-    const token = Token.create(data);
+  public async createToken({ expireAt, userId, token }: CreateTokenInterface): Promise<any> {
 
-    return this.tokenRepository.createToken(token);
+    console.log('{ expireAt, userId, token }', { expireAt, userId, token });
+
+    const tok = Token.create({ expireAt, userId, token });
+
+    return await this.tokenRepository.createToken(tok);
+
   }
 
   public async getTokens(): Promise<Token[]> {
