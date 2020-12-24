@@ -9,13 +9,14 @@ import { ITokenRepository } from './ITokenRepository';
 export class PrismaTokensRepository implements ITokenRepository {
   constructor(
     private readonly prisma: PrismaService,
-  ) {}
+  ) {
+  }
 
   async createToken(token: Token): Promise<Token> {
     const persistenceToken = TokenMap.toPersistence(token);
     const createdToken = await this.prisma.token.create({
       data: {
-        ...persistenceToken
+        ...persistenceToken,
       },
     });
 
@@ -26,6 +27,13 @@ export class PrismaTokensRepository implements ITokenRepository {
     const tokens = await this.prisma.token.findMany();
 
     return tokens.map((token) => TokenMap.toDomain(token));
+  }
+
+  public async exists(uId: string, token: string): Promise<boolean> {
+
+    const tokenWithIdOnly = await this.prisma.token.findMany({ select: { id: true } });
+    return tokenWithIdOnly.includes({ id: uId });
+
   }
 
   // async getTokenByTitle(title: string): Promise<Token | null> {

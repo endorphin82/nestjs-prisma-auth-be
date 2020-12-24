@@ -7,11 +7,11 @@ export const CreateUserMutation = extendType({
     t.field('createUser', {
       type: 'User',
       args: { data: arg({ type: CreateUserInput, required: true }) },
-      resolve: async (_, { data }, { userService }) => {
+      resolve: async (_, { data }, ctx) => {
 
         // @ts-ignore
-        const user = await userService.createUser(data);
-
+        const user = await ctx.userService.createUser(data);
+// TODO: save token in db
         return UserMap.toNexus(user);
       },
     });

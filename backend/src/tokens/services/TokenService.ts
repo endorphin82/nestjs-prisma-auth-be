@@ -28,4 +28,8 @@ export class TokenService implements ITokenService {
   public async getTokens(): Promise<Token[]> {
     return this.tokenRepository.getAllTokens();
   }
+
+  public async exists(uId: string, token: string): Promise<boolean> {
+    return await this.tokenRepository.exists(uId, token);
+  }
 }
